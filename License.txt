@@ -1,0 +1,4 @@
+This software is available as part of the DataTables Plus suite and requires a license to use.
+
+For the full license terms and conditions, please see https://datatables.net/license/plus, and https://datatables.net/plus for purchasing options.
+    

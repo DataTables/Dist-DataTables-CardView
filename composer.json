@@ -1,0 +1,28 @@
+{
+    "name": "datatables.net/datatables.net-cardview",
+    "description": "CardView is an extension for DataTables which can change the display from the regular table that the end user sees, to a card based layout, with complete control over the card display through custom templates. It can also act as a method to have complex tables display gracefully on mobile devices, with full control over the responsive breakpoints and grid display. This is CardView for DataTables",
+    "support": {
+        "forum": "https://datatables.net/forums"
+    },
+    "homepage": "https://www.datatables.net/",
+    "authors": [
+        {
+            "name": "SpryMedia",
+            "homepage": "https://datatables.net"
+        }
+    ],
+    "license": [
+        "SEE LICENSE IN License.txt"
+    ],
+    "prefer-stable": true,
+    "minimum-stability": "dev",
+    "keywords": [
+        "Cards",
+        "Responsive",
+        "Datatables",
+        "table"
+    ],
+    "require": {
+        "datatables.net/datatables.net": "3.0.0-0"
+    }
+}

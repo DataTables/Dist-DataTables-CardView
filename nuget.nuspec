@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+    <metadata>
+        <version>1.0.0-beta.1</version>
+        <id>datatables.net-cardview</id>
+        <description>This is CardView for DataTables</description>
+        <authors>SpryMedia Ltd</authors>
+        <projectUrl>https://datatables.net</projectUrl>
+        <license type="file">License.txt</license>
+        <tags>Cards  Responsive  Datatables table</tags>
+        <dependencies>
+            <dependency id="datatables.net" version="3.0.0-0"/>
+        </dependencies>
+        <contentFiles>
+            <files include="**/*" buildAction="Content"/>
+        </contentFiles>
+        <readme>Readme.md</readme>
+    </metadata>
+    <files>
+        <file src="Readme.md" target=""/>
+        <file src="js/dataTables.cardView.js" target="content\Scripts"/>
+        <file src="js/dataTables.cardView.js" target="contentFiles\any\any\wwwroot\js"/>
+        <file src="js/dataTables.cardView.min.js" target="content\Scripts"/>
+        <file src="js/dataTables.cardView.min.js" target="contentFiles\any\any\wwwroot\js"/>
+        <file src="js/dataTables.cardView.min.mjs" target="content\Scripts"/>
+        <file src="js/dataTables.cardView.min.mjs" target="contentFiles\any\any\wwwroot\js"/>
+        <file src="js/dataTables.cardView.mjs" target="content\Scripts"/>
+        <file src="js/dataTables.cardView.mjs" target="contentFiles\any\any\wwwroot\js"/>
+    </files>
+</package>
