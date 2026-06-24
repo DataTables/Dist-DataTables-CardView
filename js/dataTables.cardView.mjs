@@ -107,7 +107,7 @@ class CardView {
             this._resize();
         }
         this.s.dt.trigger('cardView-mode', [mode]);
-        DataTable.plus('2026-06-23');
+        DataTable.plus('2026-06-24');
         return this;
     }
     /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
@@ -152,7 +152,7 @@ class CardView {
      * Show the card view and hide the table
      */
     _display() {
-        this.dom.container.css('display', 'grid');
+        this.dom.container.css('display', '');
         this.dom.table.css('display', 'none');
         this.s.displayed = true;
         this._pageLength();
@@ -174,7 +174,7 @@ class CardView {
      * Hide the card view and switch back to the table
      */
     _hide() {
-        this.dom.table.css('display', 'block');
+        this.dom.table.css('display', '');
         this.dom.container.css('display', 'none');
         this.s.displayed = false;
         this._pageLength();
@@ -185,12 +185,16 @@ class CardView {
      * Initialise the instance
      */
     _init() {
+        var _a;
         let dt = this.s.dt;
         DataTable.plus('__BUILD_DATE__');
-        this.mode(this.c.mode);
+        let loadedState = (_a = dt.state.loaded()) === null || _a === void 0 ? void 0 : _a.cardView;
+        let mode = loadedState ? loadedState.mode : this.c.mode;
+        console.log(mode);
+        this.mode(mode);
         this._selectMode();
         this._selectEvents();
-        dt.on('column-sizing.dt', () => {
+        dt.on('column-sizing', () => {
             this._resize();
         })
             .on('draw', () => {
@@ -203,6 +207,12 @@ class CardView {
         })
             .on('selectStyle', () => {
             this._selectMode();
+        })
+            .on('stateSaveParams', (e, s, data) => {
+            if (!data.cardView) {
+                data.cardView = {};
+            }
+            data.cardView.mode = this.s.mode;
         })
             .on('destroy', () => {
             // TODO
@@ -220,7 +230,8 @@ class CardView {
         }
         // Otherwise, we want to round the page lengths to the nearest value
         // that will fit the grid view.
-        let selects = Dom.s(this.s.dt.table().container()).find('select');
+        let dt = this.s.dt;
+        let selects = Dom.s(dt.table().container()).find('select');
         let columns = this.s.columnCount;
         let selected;
         if (selects.length) {
@@ -250,20 +261,26 @@ class CardView {
             }
             // If the page length has changed, we need to redraw the table
             selected = parseInt(selects.val());
+            // On initialisation if the mode is switched and the value doesn't
+            // exist in the menu, we need to compute it from the API
+            if (!selected) {
+                selected = Math.round(dt.page.len() / columns) * columns;
+                selects.val(selected);
+            }
         }
         else if (this.s.displayed) {
             // No page length input, so we just work from the API
-            let current = this.s.dt.page.len();
+            let current = dt.page.len();
             selected = Math.round(current / columns) * columns;
         }
         else {
             selected = this.s.restorePageLen;
         }
-        if (selected !== this.s.dt.page.len()) {
-            this.s.dt.page.len(selected).draw(false);
+        if (selected !== dt.page.len()) {
+            dt.page.len(selected);
         }
-        else {
-            this.s.dt.draw(false);
+        if (dt.ready()) {
+            dt.draw(false);
         }
     }
     /**

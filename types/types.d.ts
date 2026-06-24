@@ -15,6 +15,11 @@ declare module 'datatables.net' {
          */
         CardView: typeof CardView;
     }
+    interface StateLoad {
+        cardView?: {
+            mode: Mode;
+        };
+    }
 }
 type Mode = 'auto' | 'cards' | 'table';
 interface Defaults {
@@ -220,6 +225,12 @@ declare module 'datatables.net' {
 		 * CardView class
 		 */
 		CardView: CardView;
+	}
+
+	interface StateLoad {
+		cardView?: {
+			mode: Mode;
+		}
 	}
 }
 
