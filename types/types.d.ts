@@ -129,6 +129,7 @@ declare class CardView {
      * Show the card view and hide the table
      */
     private _display;
+    private _destroy;
     /**
      * Draw the cards for the current page
      */

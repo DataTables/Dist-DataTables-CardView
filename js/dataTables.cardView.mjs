@@ -1,4 +1,4 @@
-/*! CardView 0.0.1 for DataTables
+/*! CardView 1.0.0-dev for DataTables
  * Copyright (c) SpryMedia Ltd - https://datatables.net/license/plus
  */
 
@@ -159,6 +159,14 @@ class CardView {
         Dom.s(this.s.dt.table().container()).classAdd(this.classes.shown);
         this.s.dt.trigger('cardView-display', ['cards']);
     }
+    _destroy() {
+        let dt = this.s.dt;
+        if (this.displayed()) {
+            this._hide();
+        }
+        this.dom.container.off('.cardView').remove();
+        dt.off('.cardView');
+    }
     /**
      * Draw the cards for the current page
      */
@@ -190,32 +198,31 @@ class CardView {
         DataTable.plus('__BUILD_DATE__');
         let loadedState = (_a = dt.state.loaded()) === null || _a === void 0 ? void 0 : _a.cardView;
         let mode = loadedState ? loadedState.mode : this.c.mode;
-        console.log(mode);
         this.mode(mode);
         this._selectMode();
         this._selectEvents();
-        dt.on('column-sizing', () => {
+        dt.on('column-sizing.cardView', () => {
             this._resize();
         })
-            .on('draw', () => {
+            .on('draw.cardView', () => {
             if (this.s.displayed) {
                 this._draw();
             }
         })
-            .on('rowInvalidate', (e, ctx, rowIdx) => {
+            .on('rowInvalidate.cardView', (e, ctx, rowIdx) => {
             this._updateCard(rowIdx);
         })
-            .on('selectStyle', () => {
+            .on('selectStyle.cardView', () => {
             this._selectMode();
         })
-            .on('stateSaveParams', (e, s, data) => {
+            .on('stateSaveParams.cardView', (e, s, data) => {
             if (!data.cardView) {
                 data.cardView = {};
             }
             data.cardView.mode = this.s.mode;
         })
-            .on('destroy', () => {
-            // TODO
+            .on('destroy.cardView', () => {
+            this._destroy();
         });
     }
     /**
@@ -355,7 +362,7 @@ class CardView {
         // Click on selection element. Rather than adding classes here, we use
         // the DataTables API to select the row, which triggers events which are
         // then used below to update the card classes.
-        this.dom.container.on('click', 'div.' + this.classes.selector.replace(/ /, '.'), function (e) {
+        this.dom.container.on('click.cardView', 'div.' + this.classes.selector.replace(/ /, '.'), function (e) {
             let rowIdx = parseInt(Dom.s(this).closest('[data-dt-row]').attr('data-dt-row'));
             if (typeof rowIdx === 'number') {
                 let row = dt.row(rowIdx);
@@ -367,7 +374,7 @@ class CardView {
                 }
             }
         });
-        dt.on('select deselect', (e, dtEvt, type, indexes) => {
+        dt.on('select.cardView deselect.cardView', (e, dtEvt, type, indexes) => {
             let ctxData = dt.settings()[0].data;
             if (type === 'row') {
                 for (let i = 0; i < indexes.length; i++) {
@@ -556,7 +563,7 @@ CardView.defaults = {
     template: dlList
 };
 /** CardView version */
-CardView.version = '0.0.1';
+CardView.version = '1.0.0-dev';
 CardView.templates = {
     dlList,
     miniTable,
