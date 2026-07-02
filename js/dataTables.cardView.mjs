@@ -107,7 +107,7 @@ class CardView {
             this._resize();
         }
         this.s.dt.trigger('cardView-mode', [mode]);
-        DataTable.plus('2026-06-27');
+        DataTable.plus('2026-07-02');
         return this;
     }
     /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
@@ -195,7 +195,7 @@ class CardView {
     _init() {
         var _a;
         let dt = this.s.dt;
-        DataTable.plus('2026-06-27');
+        DataTable.plus('2026-07-02');
         let loadedState = (_a = dt.state.loaded()) === null || _a === void 0 ? void 0 : _a.cardView;
         let mode = loadedState ? loadedState.mode : this.c.mode;
         this.mode(mode);
@@ -238,7 +238,7 @@ class CardView {
         // Otherwise, we want to round the page lengths to the nearest value
         // that will fit the grid view.
         let dt = this.s.dt;
-        let selects = Dom.s(dt.table().container()).find('select');
+        let selects = Dom.s(dt.table().container()).find('div.dt-length select');
         let columns = this.s.columnCount;
         let selected;
         if (selects.length) {
