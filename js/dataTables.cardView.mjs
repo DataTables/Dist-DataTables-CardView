@@ -1,4 +1,4 @@
-/*! CardView 1.0.0-dev for DataTables
+/*! CardView 1.0.0 for DataTables
  * Copyright (c) SpryMedia Ltd - https://datatables.net/license/plus
  */
 
@@ -107,7 +107,7 @@ class CardView {
             this._resize();
         }
         this.s.dt.trigger('cardView-mode', [mode]);
-        DataTable.plus('2026-07-14');
+        DataTable.plus('2026-07-22');
         return this;
     }
     /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
@@ -195,7 +195,7 @@ class CardView {
     _init() {
         var _a;
         let dt = this.s.dt;
-        DataTable.plus('2026-07-14');
+        DataTable.plus('2026-07-22');
         let loadedState = (_a = dt.state.loaded()) === null || _a === void 0 ? void 0 : _a.cardView;
         let mode = loadedState ? loadedState.mode : this.c.mode;
         this.mode(mode);
@@ -563,7 +563,7 @@ CardView.defaults = {
     template: dlList
 };
 /** CardView version */
-CardView.version = '1.0.0-dev';
+CardView.version = '1.0.0';
 CardView.templates = {
     dlList,
     miniTable,
