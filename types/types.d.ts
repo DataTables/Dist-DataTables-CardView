@@ -126,6 +126,10 @@ declare class CardView {
     classes: Classes;
     constructor(dtIn: Api | Context, opts?: Partial<Defaults>);
     /**
+     * Calculate the number of columns that should be shown
+     */
+    private _columns;
+    /**
      * Show the card view and hide the table
      */
     private _display;

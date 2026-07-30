@@ -148,7 +148,7 @@ class CardView {
             this._resize();
         }
         this.s.dt.trigger('cardView-mode', [mode]);
-        DataTable.plus('2026-07-28');
+        DataTable.plus('2026-07-30');
         return this;
     }
     /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
@@ -189,6 +189,34 @@ class CardView {
     /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
      * Private methods
      */
+    /**
+     * Calculate the number of columns that should be shown
+     */
+    _columns() {
+        let width = Dom.s(this.s.dt.table().container()).width();
+        let breakpoints = this.c.breakpoints;
+        let columns;
+        let breakpoint = 'tiny';
+        if (width >= breakpoints[0]) {
+            breakpoint = 'huge';
+        }
+        else if (width >= breakpoints[1]) {
+            breakpoint = 'large';
+        }
+        else if (width >= breakpoints[2]) {
+            breakpoint = 'medium';
+        }
+        else if (width >= breakpoints[3]) {
+            breakpoint = 'small';
+        }
+        else {
+            breakpoint = 'tiny';
+        }
+        // Number of columns
+        columns = this.c.gridColumns[breakpoint];
+        this.s.columnCount = columns;
+        this.dom.container[0].style.setProperty('--dtcv-grid_columns', columns.toString());
+    }
     /**
      * Show the card view and hide the table
      */
@@ -236,9 +264,10 @@ class CardView {
     _init() {
         var _a;
         let dt = this.s.dt;
-        DataTable.plus('2026-07-28');
+        DataTable.plus('2026-07-30');
         let loadedState = (_a = dt.state.loaded()) === null || _a === void 0 ? void 0 : _a.cardView;
         let mode = loadedState ? loadedState.mode : this.c.mode;
+        this._columns();
         this.mode(mode);
         this._selectMode();
         this._selectEvents();
@@ -281,7 +310,7 @@ class CardView {
         let dt = this.s.dt;
         let selects = Dom.s(dt.table().container()).find('div.dt-length select');
         let columns = this.s.columnCount;
-        let selected;
+        let selected = this.s.restorePageLen;
         if (selects.length) {
             // Undo any changes we've previously made
             selects.find('option').each(optionEl => {
@@ -307,8 +336,16 @@ class CardView {
                     }
                 });
             }
-            // If the page length has changed, we need to redraw the table
-            selected = parseInt(selects.val());
+            // If the table isn't yet ready, then we used the stored value (init
+            // or state)
+            if (!dt.ready()) {
+                selects.val(this.s.restorePageLen);
+                selected = this.s.restorePageLen;
+            }
+            else {
+                // If the page length has changed, we need to redraw the table
+                selected = parseInt(selects.val());
+            }
             // On initialisation if the mode is switched and the value doesn't
             // exist in the menu, we need to compute it from the API
             if (!selected) {
@@ -321,14 +358,11 @@ class CardView {
             let current = dt.page.len();
             selected = Math.round(current / columns) * columns;
         }
-        else {
-            selected = this.s.restorePageLen;
-        }
         if (selected !== dt.page.len()) {
             dt.page.len(selected);
-        }
-        if (dt.ready()) {
-            dt.draw(false);
+            if (dt.ready()) {
+                dt.draw(false);
+            }
         }
     }
     /**
@@ -339,30 +373,9 @@ class CardView {
      * without needing lots of (almost) duplicate CSS.
      */
     _resize() {
-        let width = Dom.s(this.s.dt.table().container()).width();
-        let breakpoints = this.c.breakpoints;
-        let columns;
-        let breakpoint = 'tiny';
-        if (width >= breakpoints[0]) {
-            breakpoint = 'huge';
-        }
-        else if (width >= breakpoints[1]) {
-            breakpoint = 'large';
-        }
-        else if (width >= breakpoints[2]) {
-            breakpoint = 'medium';
-        }
-        else if (width >= breakpoints[3]) {
-            breakpoint = 'small';
-        }
-        else {
-            breakpoint = 'tiny';
-        }
-        // Number of columns
-        columns = this.c.gridColumns[breakpoint];
-        this.s.columnCount = columns;
-        this.dom.container[0].style.setProperty('--dtcv-grid_columns', columns.toString());
+        this._columns();
         // Auto activation
+        let width = Dom.s(this.s.dt.table().container()).width();
         let autoResponsive = this.c.responsiveBreakpoint;
         if (this.s.mode === 'auto') {
             let bp;
