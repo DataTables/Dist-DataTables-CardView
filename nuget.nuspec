@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
     <metadata>
-        <version>1.0.0</version>
+        <version>1.0.1</version>
         <id>datatables.net-cardview</id>
         <description>This is CardView for DataTables</description>
         <authors>SpryMedia Ltd</authors>
@@ -9,7 +9,7 @@
         <license type="file">License.txt</license>
         <tags>Cards  Responsive  Datatables table</tags>
         <dependencies>
-            <dependency id="datatables.net" version="3.0.0-0"/>
+            <dependency id="datatables.net" version="[3.0.0, 4.0.0)"/>
         </dependencies>
         <contentFiles>
             <files include="**/*" buildAction="Content"/>
