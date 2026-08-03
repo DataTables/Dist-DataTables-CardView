@@ -148,7 +148,7 @@ class CardView {
             this._resize();
         }
         this.s.dt.trigger('cardView-mode', [mode]);
-        DataTable.plus('2026-07-31');
+        DataTable.plus('2026-08-03');
         return this;
     }
     /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
@@ -264,7 +264,7 @@ class CardView {
     _init() {
         var _a;
         let dt = this.s.dt;
-        DataTable.plus('2026-07-31');
+        DataTable.plus('2026-08-03');
         let loadedState = (_a = dt.state.loaded()) === null || _a === void 0 ? void 0 : _a.cardView;
         let mode = loadedState ? loadedState.mode : this.c.mode;
         this._columns();
@@ -363,6 +363,12 @@ class CardView {
             if (dt.ready()) {
                 dt.draw(false);
             }
+        }
+        else if (this.dom.container.children().length === 0 &&
+            dt.page.info().recordsDisplay &&
+            this.s.displayed &&
+            dt.ready()) {
+            this._draw();
         }
     }
     /**
