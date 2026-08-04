@@ -107,7 +107,7 @@ class CardView {
             this._resize();
         }
         this.s.dt.trigger('cardView-mode', [mode]);
-        DataTable.plus('2026-08-03');
+        DataTable.plus('2026-08-04');
         return this;
     }
     /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
@@ -131,7 +131,7 @@ class CardView {
         this.dom = {
             container: Dom.c('div').classAdd(this.classes.container),
             host: tableHost,
-            table: tableHost.children(),
+            table: tableHost.children(':not(.dt-processing)'),
             templateSrc: typeof this.c.template === 'function'
                 ? this.c.template.call(this)
                 : Dom.s(this.c.template),
@@ -223,7 +223,7 @@ class CardView {
     _init() {
         var _a;
         let dt = this.s.dt;
-        DataTable.plus('2026-08-03');
+        DataTable.plus('2026-08-04');
         let loadedState = (_a = dt.state.loaded()) === null || _a === void 0 ? void 0 : _a.cardView;
         let mode = loadedState ? loadedState.mode : this.c.mode;
         this._columns();
