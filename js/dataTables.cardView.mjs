@@ -107,7 +107,7 @@ class CardView {
             this._resize();
         }
         this.s.dt.trigger('cardView-mode', [mode]);
-        DataTable.plus('2026-08-04');
+        DataTable.plus('2026-08-12');
         return this;
     }
     /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
@@ -223,7 +223,7 @@ class CardView {
     _init() {
         var _a;
         let dt = this.s.dt;
-        DataTable.plus('2026-08-04');
+        DataTable.plus('2026-08-12');
         let loadedState = (_a = dt.state.loaded()) === null || _a === void 0 ? void 0 : _a.cardView;
         let mode = loadedState ? loadedState.mode : this.c.mode;
         this._columns();
@@ -329,6 +329,11 @@ class CardView {
             dt.ready()) {
             this._draw();
         }
+        else {
+            // No need for a draw of the host DataTable, but we do need to save
+            // state
+            dt.state.save();
+        }
     }
     /**
      * Set the number of columns to use for the display, based on the width
@@ -366,12 +371,13 @@ class CardView {
             }
             if (width < bp && !this.displayed()) {
                 this._display();
+                this._pageLength();
             }
             else if (width >= bp && this.displayed()) {
                 this._hide();
+                this._pageLength();
             }
         }
-        this._pageLength();
     }
     /**
      * Event handlers for syncing row selection between CardView and the table
