@@ -107,7 +107,7 @@ class CardView {
             this._resize();
         }
         this.s.dt.trigger('cardView-mode', [mode]);
-        DataTable.plus('2026-08-12');
+        DataTable.plus('2026-08-17');
         return this;
     }
     /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
@@ -223,7 +223,7 @@ class CardView {
     _init() {
         var _a;
         let dt = this.s.dt;
-        DataTable.plus('2026-08-12');
+        DataTable.plus('2026-08-17');
         let loadedState = (_a = dt.state.loaded()) === null || _a === void 0 ? void 0 : _a.cardView;
         let mode = loadedState ? loadedState.mode : this.c.mode;
         this._columns();
@@ -249,6 +249,12 @@ class CardView {
                 data.cardView = {};
             }
             data.cardView.mode = this.s.mode;
+        })
+            .on('column-visibility', (e, settings, column, state, recalc) => {
+            if ((recalc === true || recalc === undefined) &&
+                this.s.displayed) {
+                this._draw();
+            }
         })
             .on('destroy.cardView', () => {
             this._destroy();
@@ -508,7 +514,11 @@ class CardView {
         if (!ctxData[idx]) {
             return;
         }
-        if (ctxData[idx]._card) {
+        // It is possible for the columns to change between draws (e.g. column
+        // visibility). If that happens a new card element is needed, so we
+        // track the column indexes included in the card element.
+        let targetColumns = dt.columns(this.c.columns).indexes().join(',');
+        if (ctxData[idx]._card && ctxData[idx]._cardColumns === targetColumns) {
             // Reuse an existing card if we can
             card = ctxData[idx]._card;
         }
@@ -523,6 +533,7 @@ class CardView {
                 card.classAdd(this.classes.selected);
             }
             ctxData[idx]._card = card;
+            ctxData[idx]._cardColumns = targetColumns;
         }
         // Display the card
         this.dom.container.append(card);
