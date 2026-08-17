@@ -292,9 +292,13 @@ class CardView {
             data.cardView.mode = this.s.mode;
         })
             .on('column-visibility', (e, settings, column, state, recalc) => {
-            if ((recalc === true || recalc === undefined) &&
-                this.s.displayed) {
-                this._draw();
+            if (recalc === true || recalc === undefined) {
+                if (this.s.displayed) {
+                    this._draw();
+                }
+                else {
+                    this.dom.container.empty();
+                }
             }
         })
             .on('destroy.cardView', () => {
