@@ -209,7 +209,7 @@ declare class CardView {
  * DataTables' types integration
  */
 declare module 'datatables.net' {
-	interface Config {
+	interface Options {
 		/**
 		 * cardView extension options
 		 */
