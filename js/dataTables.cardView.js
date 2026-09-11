@@ -148,7 +148,7 @@ class CardView {
             this._resize();
         }
         this.s.dt.trigger('cardView-mode', [mode]);
-        DataTable.plus('2026-08-19');
+        DataTable.plus('2026-09-11');
         return this;
     }
     /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
@@ -264,7 +264,7 @@ class CardView {
     _init() {
         var _a;
         let dt = this.s.dt;
-        DataTable.plus('2026-08-19');
+        DataTable.plus('2026-09-11');
         let loadedState = (_a = dt.state.loaded()) === null || _a === void 0 ? void 0 : _a.cardView;
         let mode = loadedState ? loadedState.mode : this.c.mode;
         this._columns();
@@ -291,7 +291,12 @@ class CardView {
             }
             data.cardView.mode = this.s.mode;
         })
-            .on('column-visibility', (e, settings, column, state, recalc) => {
+            .on('stateLoadParams.cardView', (e, s, data) => {
+            if (dt.ready() && data.cardView) {
+                this.mode(data.cardView.mode);
+            }
+        })
+            .on('column-visibility.cardView', (e, settings, column, state, recalc) => {
             if (recalc === true || recalc === undefined) {
                 if (this.s.displayed) {
                     this._draw();
