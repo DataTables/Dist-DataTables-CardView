@@ -148,7 +148,7 @@ class CardView {
             this._resize();
         }
         this.s.dt.trigger('cardView-mode', [mode]);
-        DataTable.plus('2026-09-11');
+        DataTable.plus('2026-09-16');
         return this;
     }
     /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
@@ -264,7 +264,7 @@ class CardView {
     _init() {
         var _a;
         let dt = this.s.dt;
-        DataTable.plus('2026-09-11');
+        DataTable.plus('2026-09-16');
         let loadedState = (_a = dt.state.loaded()) === null || _a === void 0 ? void 0 : _a.cardView;
         let mode = loadedState ? loadedState.mode : this.c.mode;
         this._columns();
@@ -752,7 +752,7 @@ DataTable.ext.buttons.autoView = {
 };
 // Attach a listener to the document which listens for DataTables initialisation
 // events so we can automatically initialise
-Dom.s(document).on('preInit.dt.cardView', function (e, settings) {
+Dom.on('preInit.dt.cardView', function (e, settings) {
     if (e.namespace !== 'dt') {
         return;
     }
