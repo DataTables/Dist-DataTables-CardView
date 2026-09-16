@@ -119,8 +119,8 @@ const miniTable = function () {
 };
 
 
-if (!DataTable || !DataTable.versionCheck || !DataTable.versionCheck('3')) {
-    throw 'Warning: CardView requires DataTables 3 or greater';
+if (!DataTable || !DataTable.versionCheck || !DataTable.versionCheck('3.1')) {
+    throw 'Warning: CardView requires DataTables 3.1 or greater';
 }
 class CardView {
     /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
