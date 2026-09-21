@@ -148,7 +148,7 @@ class CardView {
             this._resize();
         }
         this.s.dt.trigger('cardView-mode', [mode]);
-        DataTable.plus('2026-09-17');
+        DataTable.plus('2026-09-21');
         return this;
     }
     /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
@@ -264,7 +264,7 @@ class CardView {
     _init() {
         var _a;
         let dt = this.s.dt;
-        DataTable.plus('2026-09-17');
+        DataTable.plus('2026-09-21');
         let loadedState = (_a = dt.state.loaded()) === null || _a === void 0 ? void 0 : _a.cardView;
         let mode = loadedState ? loadedState.mode : this.c.mode;
         this._columns();
@@ -353,7 +353,7 @@ class CardView {
             }
             // If the table isn't yet ready, then we used the stored value (init
             // or state)
-            if (!dt.ready()) {
+            if (!dt.ready() && dt.settings()[0].features.stateSave) {
                 selects.val(this.s.restorePageLen);
                 selected = this.s.restorePageLen;
             }
