@@ -1,14 +1,13 @@
 {
     "name": "datatables.net-cardview",
     "description": "CardView for DataTables",
-    "main": "js/dataTables.cardView.js",
-    "module": "js/dataTables.cardView.mjs",
+    "main": "./js/dataTables.cardView.js",
+    "module": "./js/dataTables.cardView.mjs",
     "types": "./types/types.d.ts",
     "version": "1.0.3",
     "files": [
-        "js/**/*.js",
-        "js/**/*.mjs",
-        "types/**/*.d.ts"
+        "js",
+        "types"
     ],
     "keywords": [
         "Cards",
@@ -27,5 +26,16 @@
     },
     "homepage": "https://datatables.net",
     "bugs": "https://datatables.net/forums",
-    "license": "SEE LICENSE IN License.txt"
+    "license": "SEE LICENSE IN License.txt",
+    "exports": {
+        ".": {
+            "types": "./types/types.d.ts",
+            "import": "./js/dataTables.cardView.mjs",
+            "default": "./js/dataTables.cardView.mjs",
+            "require": "./js/dataTables.cardView.js"
+        },
+        "./js/*": "./js/*",
+        "./package.json": "./package.json"
+    },
+    "sideEffects": true
 }
