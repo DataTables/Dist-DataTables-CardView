@@ -1,4 +1,4 @@
-/*! CardView 1.1.0 for DataTables
+/*! CardView 1.1.1 for DataTables
  * Copyright (c) SpryMedia Ltd - https://datatables.net/license/plus
  */
 
@@ -608,7 +608,7 @@ CardView.defaults = {
     template: dlList
 };
 /** CardView version */
-CardView.version = '1.1.0';
+CardView.version = '1.1.1';
 CardView.templates = {
     dlList,
     miniTable,
