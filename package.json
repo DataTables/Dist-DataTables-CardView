@@ -31,8 +31,8 @@
         ".": {
             "types": "./types/types.d.ts",
             "import": "./js/dataTables.cardView.mjs",
-            "default": "./js/dataTables.cardView.mjs",
-            "require": "./js/dataTables.cardView.js"
+            "require": "./js/dataTables.cardView.js",
+            "default": "./js/dataTables.cardView.mjs"
         },
         "./js/*": "./js/*",
         "./package.json": "./package.json"
