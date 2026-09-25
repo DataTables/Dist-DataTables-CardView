@@ -10,6 +10,6 @@
         "types/types.d.ts"
     ],
     "src-repo": "http://github.com/DataTables/CardView",
-    "last-tag": "1.1.1",
+    "last-tag": "1.1.2",
     "last-sync": "5bc8d4ed681a29a34ae2ee9578eedc247fba00a3"
 }
