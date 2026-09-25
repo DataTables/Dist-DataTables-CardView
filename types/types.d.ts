@@ -15,6 +15,11 @@ declare module 'datatables.net' {
          */
         CardView: typeof CardView;
     }
+    interface State {
+        cardView?: {
+            mode: Mode;
+        };
+    }
     interface StateLoad {
         cardView?: {
             mode: Mode;
